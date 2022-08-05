@@ -9,12 +9,14 @@ import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
-  BarElement,
+  PointElement,
+  LineElement,
   Title,
   Tooltip,
   Legend,
-} from "chart.js";
-import { Bar } from "react-chartjs-2";
+} from 'chart.js';
+
+import { Line } from "react-chartjs-2";
 
 const CountryPage = () => {
   const { countryName } = useParams();
@@ -39,40 +41,45 @@ const CountryPage = () => {
   ChartJS.register(
     CategoryScale,
     LinearScale,
-    BarElement,
+    PointElement,
+    LineElement,
     Title,
     Tooltip,
     Legend
   );
 
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top",
-        display: false,
+ 
+  const chartData = (arr, labels, labelOption) => {
+    const options = {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: "top",
+          display: false,
+        },
+        title: {
+          display: true,
+          text: labelOption,
+        },
       },
-      title: {
-        display: true,
-        text: "T",
-      },
-    },
-  };
-
-  const chartData = (arr, labels, option) => {
+    };
+    
     const data = {
       labels: labels,
       datasets: [
         {
-          data: arr.map((month) => month[option]),
+          data: arr.map((month) => month[labelOption]),
           borderColor: "black",
           backgroundColor: "rgba(255, 99, 132, 0.5)",
         },
       ],
     };
+
+    
+  
     // console.log(arr);
-    // console.log(data);
-    return data;
+    console.log(data);
+    return {data, options};
   };
 
   useEffect(() => {
@@ -277,10 +284,9 @@ const CountryPage = () => {
             {console.log(Object.keys(Object.values(country.weather)[0]))}
             {/* {chartData(Object.values(country.weather))} */}
             {Object.keys(Object.values(country.weather)[0]).map((item, i) => (
-              <Bar
+              <Line
                 key={i}
-                options={options}
-                data={chartData(
+               {...chartData(
                   Object.values(country.weather),
                   Object.keys(country.weather),
                   item
