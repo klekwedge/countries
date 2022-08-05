@@ -127,6 +127,17 @@ const CountryPage = () => {
       ) : null}
 
       <CounrtySection
+        title={"Currency"}
+        content={
+          <Box p="15px 20px 15px 20px">
+            The currency in {country.names.name} is {country.currency.name}
+            <Heading as="h3" fontWeight='400' fontSize='inherit'> Rate: {Number(country.currency.rate).toFixed(2)} $</Heading>
+            <Heading as="h3" fontWeight='400' fontSize='inherit'> Code: {country.currency.code}</Heading>
+          </Box>
+        }
+      />
+
+      <CounrtySection
         title={"Language"}
         content={
           <Box p="15px 20px 15px 20px">
@@ -187,7 +198,6 @@ const CountryPage = () => {
                 color="white"
                 p="10px 10px"
               >
-                {console.log(item)}
                 {electricityTitle[i]}
                 <Heading as="h3" fontSize="20px" fontWeight="400">
                   {i === 0 ? `${item[1]} Volt` : null}
