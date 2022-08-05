@@ -11,10 +11,10 @@ class TravelBriefingService extends Component {
     const res = await fetch(
       `https://travelbriefing.org/${countryName}?format=json`
     );
-
     const data = await res.json();
     return data;
   };
+
 }
 
 export default TravelBriefingService;

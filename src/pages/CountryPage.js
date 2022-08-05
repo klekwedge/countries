@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
-import { Text, Flex, List, ListItem, Heading, Box } from "@chakra-ui/react";
+import {
+  Text,
+  Image,
+  Flex,
+  List,
+  ListItem,
+  Heading,
+  Box,
+} from "@chakra-ui/react";
 import { Link, useParams } from "react-router-dom";
 import { GiPhone, GiPoliceBadge, GiAmbulance, GiFire } from "react-icons/gi";
 import TravelBriefingService from "../services/TravelBriefingService";
@@ -73,21 +81,23 @@ const CountryPage = () => {
           data: arr.map((month) => month[`${parametr}Avg`]),
           borderColor: "#FFB1C1",
           backgroundColor: "red",
+          pointRadius: 5,
         },
         {
           data: arr.map((month) => month[`${parametr}Max`]),
           borderColor: "#4BC0C0",
           backgroundColor: "green",
+          pointRadius: 5,
         },
         {
           data: arr.map((month) => month[`${parametr}Min`]),
           borderColor: "#9AD0F5",
           backgroundColor: "blue",
+          pointRadius: 5,
         },
       ],
     };
 
-    console.log(arr);
     return { data, options };
   };
 
@@ -95,8 +105,16 @@ const CountryPage = () => {
     travelBriefing.getCountry(countryName).then(onCityLoaded).catch(onError);
   }, [countryName]);
 
+  // useEffect(() => {
+  //   console.log(countryName);
+
+  //   travelBriefing
+  //     .getCountryFlag(countryName)
+  //     .then(onFlagLoaded)
+  //     .catch(onError);
+  // }, [country]);
+
   const onCityLoaded = (country) => {
-    console.log(country);
     setCounrty(country);
   };
 
@@ -119,40 +137,46 @@ const CountryPage = () => {
 
   const content = country ? (
     <Flex flexDirection="column" gap="30px" p="20px 0px" fontSize="18px">
-      <Flex flexDirection="column" gap="3px">
-        <Heading as="h1" fontSize="24px">
-          {country.names.name}
-        </Heading>
-        <Heading as="h2" fontWeight="400" fontSize="22px">
-          {country.names.full}
-        </Heading>
-        <Heading as="h2" fontWeight="400" fontSize="20px">
-          {country.names.continent}
-        </Heading>
-        <Heading as="h2" fontWeight="400" fontSize="20px">
-          {country.names.iso2}
-        </Heading>
-        <Heading as="h2" fontWeight="400" fontSize="20px">
-          {country.names.iso3}
-        </Heading>
-
-        <List display="flex" gap="10px" alignItems="center" fontSize="20px">
-          <Heading as="h2" fontSize="inherit" fontWeight="400">
-            Other countries in the neighborhood of {country.names.name}:
+      <Flex gap="40px">
+        <Image
+          src={`https://countryflagsapi.com/png/${countryName}`}
+          alt={`${countryName} flag`}
+        />
+        <Flex flexDirection="column" gap="5px">
+          <Heading as="h1" fontSize="24px" mb='10px'>
+            {country.names.name}
           </Heading>
-          {country.neighbors.map((item, i) => (
-            <Link key={i} to={`/${item.name}`}>
-              {item.name},
-            </Link>
-          ))}
-        </List>
-        <Heading as="h2" fontWeight="400" fontSize="20px">
-          Latitude: {country.maps.lat}
-        </Heading>
-        <Heading as="h2" fontWeight="400" fontSize="20px">
-          Longitude: {country.maps.long}
-        </Heading>
+          <Heading as="h2" fontWeight="400" fontSize="22px">
+            Fullname: {country.names.full}
+          </Heading>
+          <Heading as="h2" fontWeight="400" fontSize="20px">
+            Continent: {country.names.continent}
+          </Heading>
+          <Heading as="h2" fontWeight="400" fontSize="20px">
+            Iso2 code: {country.names.iso2}
+          </Heading>
+          <Heading as="h2" fontWeight="400" fontSize="20px">
+            Iso3 code: {country.names.iso3}
+          </Heading>
+          <Heading as="h2" fontWeight="400" fontSize="20px">
+            Latitude: {Number(country.maps.lat).toFixed(2)}
+          </Heading>
+          <Heading as="h2" fontWeight="400" fontSize="20px">
+            Longitude: {Number(country.maps.long).toFixed(2)}
+          </Heading>
+        </Flex>
       </Flex>
+
+      <List display="flex" gap="10px" alignItems="center" fontSize="20px">
+        <Heading as="h2" fontSize="inherit" fontWeight="400">
+          Other countries in the neighborhood of {country.names.name}:
+        </Heading>
+        {country.neighbors.map((item, i) => (
+          <Link key={i} to={`/${item.name}`}>
+            {item.name},
+          </Link>
+        ))}
+      </List>
 
       <CounrtySection
         title={"Drinking water"}
@@ -213,7 +237,9 @@ const CountryPage = () => {
             The language spoken in {country.names.name} is{" "}
             {country.language.map((item, i) => (
               <span key={i}>
-                {item.language}
+                {`${item.language} (${
+                  item.official === "Yes" ? "official" : "not official"
+                })`}
                 {country.language.length > 1 &&
                 i !== country.language.length - 1
                   ? ", "
@@ -288,7 +314,6 @@ const CountryPage = () => {
             p="20px"
             gap="100px"
           >
-            {console.log(Object.keys(Object.values(country.weather)[0]))}
             <Line
               {...chartData(
                 Object.values(country.weather),
