@@ -14,7 +14,7 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js';
+} from "chart.js";
 
 import { Line } from "react-chartjs-2";
 
@@ -48,8 +48,7 @@ const CountryPage = () => {
     Legend
   );
 
- 
-  const chartData = (arr, labels, labelOption) => {
+  const chartData = (arr, labels, labelOption, parametr) => {
     const options = {
       responsive: true,
       plugins: {
@@ -60,26 +59,36 @@ const CountryPage = () => {
         title: {
           display: true,
           text: labelOption,
+          font: {
+            size: "20px",
+          },
         },
       },
     };
-    
+
     const data = {
       labels: labels,
       datasets: [
         {
-          data: arr.map((month) => month[labelOption]),
-          borderColor: "black",
-          backgroundColor: "rgba(255, 99, 132, 0.5)",
+          data: arr.map((month) => month[`${parametr}Avg`]),
+          borderColor: "#FFB1C1",
+          backgroundColor: "red",
+        },
+        {
+          data: arr.map((month) => month[`${parametr}Max`]),
+          borderColor: "#4BC0C0",
+          backgroundColor: "green",
+        },
+        {
+          data: arr.map((month) => month[`${parametr}Min`]),
+          borderColor: "#9AD0F5",
+          backgroundColor: "blue",
         },
       ],
     };
 
-    
-  
-    // console.log(arr);
-    console.log(data);
-    return {data, options};
+    console.log(arr);
+    return { data, options };
   };
 
   useEffect(() => {
@@ -273,27 +282,30 @@ const CountryPage = () => {
       <CounrtySection
         title={"Weather"}
         content={
-          <List
-            // maxWidth="700px"
-            // alignItems="center"
-            display="flex"
+          <Flex
+            // maxWidth="900px"
             flexDirection="column"
             p="20px"
             gap="100px"
           >
             {console.log(Object.keys(Object.values(country.weather)[0]))}
-            {/* {chartData(Object.values(country.weather))} */}
-            {Object.keys(Object.values(country.weather)[0]).map((item, i) => (
-              <Line
-                key={i}
-               {...chartData(
-                  Object.values(country.weather),
-                  Object.keys(country.weather),
-                  item
-                )}
-              />
-            ))}
-          </List>
+            <Line
+              {...chartData(
+                Object.values(country.weather),
+                Object.keys(country.weather),
+                `Average temperature (°C) in ${country.names.name} per month`,
+                "t"
+              )}
+            />
+            <Line
+              {...chartData(
+                Object.values(country.weather),
+                Object.keys(country.weather),
+                `Average precipitation (mm) in ${country.names.name} per month`,
+                "p"
+              )}
+            />
+          </Flex>
         }
       />
     </Flex>
