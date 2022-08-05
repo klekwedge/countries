@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import {
   Text,
   Image,
+  Skeleton,
   Flex,
   List,
   ListItem,
@@ -12,7 +13,7 @@ import { Link, useParams } from "react-router-dom";
 import { GiPhone, GiPoliceBadge, GiAmbulance, GiFire } from "react-icons/gi";
 import TravelBriefingService from "../services/TravelBriefingService";
 import CounrtySection from "../CounrtySection/CounrtySection";
-
+import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -29,6 +30,11 @@ import { Line } from "react-chartjs-2";
 const CountryPage = () => {
   const { countryName } = useParams();
   const [country, setCounrty] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const handleOnLoad = () => {
+    setLoading(false);
+  };
 
   const telephoneIcons = [
     <GiPhone size="30px" />,
@@ -36,6 +42,7 @@ const CountryPage = () => {
     <GiAmbulance size="30px" />,
     <GiFire size="30px" />,
   ];
+
   const telephoneTitle = [
     "Country code:",
     "Police:",
@@ -105,15 +112,6 @@ const CountryPage = () => {
     travelBriefing.getCountry(countryName).then(onCityLoaded).catch(onError);
   }, [countryName]);
 
-  // useEffect(() => {
-  //   console.log(countryName);
-
-  //   travelBriefing
-  //     .getCountryFlag(countryName)
-  //     .then(onFlagLoaded)
-  //     .catch(onError);
-  // }, [country]);
-
   const onCityLoaded = (country) => {
     setCounrty(country);
   };
@@ -135,15 +133,35 @@ const CountryPage = () => {
     }
   };
 
+  // 5ae2e3f221c38a28845f05b67c28484622acf311624c021c68a43175
+
   const content = country ? (
-    <Flex flexDirection="column" gap="30px" p="20px 0px" fontSize="18px">
+    <Flex
+      maxWidth="1200px"
+      flexDirection="column"
+      gap="30px"
+      p="20px 0px"
+      fontSize="18px"
+    >
+      <Box position="absolute" top="20px" left="20px">
+        <Link to="/">
+          <BsFillArrowLeftCircleFill size="35px" />
+        </Link>
+      </Box>
+
       <Flex gap="40px">
+        {loading && <Skeleton width="300px" height="220px" />}
+
         <Image
+          maxWidth="300px"
+          maxHeight="220px"
           src={`https://countryflagsapi.com/png/${countryName}`}
           alt={`${countryName} flag`}
+          onLoad={handleOnLoad}
         />
+
         <Flex flexDirection="column" gap="5px">
-          <Heading as="h1" fontSize="24px" mb='10px'>
+          <Heading as="h1" fontSize="24px" mb="10px">
             {country.names.name}
           </Heading>
           <Heading as="h2" fontWeight="400" fontSize="22px">
@@ -177,6 +195,8 @@ const CountryPage = () => {
           </Link>
         ))}
       </List>
+
+      <Link to={`/${country.names.name}/Moscow`}>Test link</Link>
 
       <CounrtySection
         title={"Drinking water"}

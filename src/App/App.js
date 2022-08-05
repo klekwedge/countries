@@ -4,6 +4,9 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 const MainPage = lazy(() => import("../pages/MainPage"));
 const CountryPage = lazy(() => import("../pages/CountryPage"));
+const CityPage = lazy(() => import("../pages/CityPage"));
+const Page404 = lazy(() => import("../pages/Page404"));
+const AttractionPage = lazy(() => import("../pages/AttractionPage"));
 
 function App() {
   return (
@@ -14,6 +17,9 @@ function App() {
             <Routes>
               <Route path="/" element={<MainPage />} />
               <Route path="/:countryName" element={<CountryPage />} />
+              <Route path="/:countryName/:cityName" element={<CityPage />} />
+              {/* <Route path="/:countryName/:cityName/:attractionName" element={<AttractionPage />} /> */}
+              <Route path="*" element={<Page404 />} />
             </Routes>
           </Flex>
         </Suspense>
