@@ -1,11 +1,20 @@
 import { useEffect, useState } from "react";
-import { Flex, List, ListItem, Heading, Box } from "@chakra-ui/react";
-import TravelBriefingService from "../services/TravelBriefingService";
-import { useParams } from "react-router-dom";
-import CounrtySection from "../CounrtySection/CounrtySection";
-import { Text } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Text, Flex, List, ListItem, Heading, Box } from "@chakra-ui/react";
+import { Link, useParams } from "react-router-dom";
 import { GiPhone, GiPoliceBadge, GiAmbulance, GiFire } from "react-icons/gi";
+import TravelBriefingService from "../services/TravelBriefingService";
+import CounrtySection from "../CounrtySection/CounrtySection";
+
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
 
 const CountryPage = () => {
   const { countryName } = useParams();
@@ -25,8 +34,46 @@ const CountryPage = () => {
   ];
 
   const electricityTitle = ["Voltage:", "Frequency:", "Plugs:"];
-
   const travelBriefing = new TravelBriefingService();
+
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend
+  );
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+        display: false,
+      },
+      title: {
+        display: true,
+        text: "T",
+      },
+    },
+  };
+
+  const chartData = (arr, labels, option) => {
+    const data = {
+      labels: labels,
+      datasets: [
+        {
+          data: arr.map((month) => month[option]),
+          borderColor: "black",
+          backgroundColor: "rgba(255, 99, 132, 0.5)",
+        },
+      ],
+    };
+    // console.log(arr);
+    // console.log(data);
+    return data;
+  };
 
   useEffect(() => {
     travelBriefing.getCountry(countryName).then(onCityLoaded).catch(onError);
@@ -130,9 +177,15 @@ const CountryPage = () => {
         title={"Currency"}
         content={
           <Box p="15px 20px 15px 20px">
-            The currency in {country.names.name} is {country.currency.name}
-            <Heading as="h3" fontWeight='400' fontSize='inherit'> Rate: {Number(country.currency.rate).toFixed(2)} $</Heading>
-            <Heading as="h3" fontWeight='400' fontSize='inherit'> Code: {country.currency.code}</Heading>
+            <Heading as="h3" fontWeight="400" fontSize="inherit">
+              The currency in {country.names.name} is {country.currency.name}
+            </Heading>
+            <Heading as="h3" fontWeight="400" fontSize="inherit">
+              Rate: {Number(country.currency.rate).toFixed(2)} $
+            </Heading>
+            <Heading as="h3" fontWeight="400" fontSize="inherit">
+              Code: {country.currency.code}
+            </Heading>
           </Box>
         }
       />
@@ -205,6 +258,34 @@ const CountryPage = () => {
                   {i === 2 ? item[1].join(", ") : null}
                 </Heading>
               </ListItem>
+            ))}
+          </List>
+        }
+      />
+
+      <CounrtySection
+        title={"Weather"}
+        content={
+          <List
+            // maxWidth="700px"
+            // alignItems="center"
+            display="flex"
+            flexDirection="column"
+            p="20px"
+            gap="100px"
+          >
+            {console.log(Object.keys(Object.values(country.weather)[0]))}
+            {/* {chartData(Object.values(country.weather))} */}
+            {Object.keys(Object.values(country.weather)[0]).map((item, i) => (
+              <Bar
+                key={i}
+                options={options}
+                data={chartData(
+                  Object.values(country.weather),
+                  Object.keys(country.weather),
+                  item
+                )}
+              />
             ))}
           </List>
         }
