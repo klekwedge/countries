@@ -18,7 +18,7 @@ function App() {
               <Route path="/" element={<MainPage />} />
               <Route path="/:countryName" element={<CountryPage />} />
               <Route path="/:countryName/:cityName" element={<CityPage />} />
-              {/* <Route path="/:countryName/:cityName/:attractionName" element={<AttractionPage />} /> */}
+              <Route path="/:countryName/:cityName/:attractionName" element={<AttractionPage />} />
               <Route path="*" element={<Page404 />} />
             </Routes>
           </Flex>

@@ -11,7 +11,7 @@ const AttractionPage = () => {
   const travelBriefing = new TravelBriefingService();
 
   useEffect(() => {
-    console.log("!");
+    console.log(attractionName);
     // travelBriefing.getAttractionCity().then(onAttractionLoaded).catch(onError);
   }, [attractionName]);
 

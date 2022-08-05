@@ -15,7 +15,6 @@ const CityPage = () => {
   }, [cityName]);
 
   const onAttractionLoaded = (attractions) => {
-    console.log(attractions.features);
     setAttractions(attractions.features);
   };
 
@@ -35,18 +34,12 @@ const CityPage = () => {
         <List>
           {attractions.map((item, i) => (
             <ListItem key={i} display="flex" gap="10px">
-              {/* {console.log(item)} */}
               <Heading as="h2" fontWeight="400" fontSize="20px">
-                <Link>{item.properties.name}</Link>
+                {console.log()}
+                <Link to={`${item.properties.xid}`}>{item.properties.name}</Link>
               </Heading>
               <Heading as="h2" fontWeight="400" fontSize="20px">
                 {item.properties.rate}
-              </Heading>
-              <Heading as="h2" fontWeight="400" fontSize="20px">
-                {item.properties.wikidata}
-              </Heading>
-              <Heading as="h2" fontWeight="400" fontSize="20px">
-                {item.properties.xid}
               </Heading>
             </ListItem>
           ))}
