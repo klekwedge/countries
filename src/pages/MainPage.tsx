@@ -1,32 +1,18 @@
-import { Flex, Heading, Highlight, Image, Text } from "@chakra-ui/react";
+import { Flex, Heading, Image } from "@chakra-ui/react";
 import { v4 as uuidv4 } from "uuid";
-import { useEffect, useState } from "react";
-import RestCountries from "../services/RestCountries";
 import { ICountry } from "../types/types";
-import Search from "../components/Search/Search";
 
 interface MainPageProps {
   isLightTheme: boolean;
+  flags: ICountry[];
 }
 
-const MainPage = ({ isLightTheme }: MainPageProps) => {
-  const [flags, setFlags] = useState<ICountry[]>([]);
-  const { getAllCountries } = RestCountries();
-
-  useEffect(() => {
-    getAllCountries().then((data: ICountry[]) => setFlags(data));
-  }, []);
-
+const MainPage = ({ flags, isLightTheme }: MainPageProps) => {
   return (
     <>
-      <Search />
       <Flex gap="60px" flexWrap="wrap" justifyContent="center">
-        {flags.map((flag) => (
-          <Flex
-            key={uuidv4()}
-            flex="0 1 21%"
-            direction="column"
-          >
+        {flags && flags.map((flag) => (
+          <Flex key={uuidv4()} flex="0 1 21%" direction="column">
             <Image flex="1 1 50%" src={flag.flags.png} maxH="250px" />
             <Flex
               flexDirection="column"

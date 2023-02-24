@@ -2,14 +2,27 @@ import { lazy, Suspense, useState, useEffect } from "react";
 import { Flex } from "@chakra-ui/react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "../Header/Header";
+import Search from "../Search/Search";
 import "./App.scss";
+import { ICountry } from "../../types/types";
+import RestCountries from "../../services/RestCountries";
 
 const MainPage = lazy(() => import("../../pages/MainPage"));
 const CountryPage = lazy(() => import("../../pages/CountryPage"));
 const Page404 = lazy(() => import("../../pages/Page404"));
 
 function App() {
-  const [isLightTheme, setIsLightTheme] = useState(true);
+  const [isLightTheme, setIsLightTheme] = useState(false);
+  const [flags, setFlags] = useState<ICountry[]>([]);
+  const { getCountry, getAllCountries } = RestCountries();
+
+  useEffect(() => {
+    getAllCountries().then((data: ICountry[]) => setFlags(data));
+  }, []);
+
+  function findCountry(countryName: string) {
+    getCountry(countryName).then((data: ICountry[]) => setFlags(data));
+  }
 
   useEffect(() => {
     if (isLightTheme) {
@@ -30,8 +43,12 @@ function App() {
           flexDirection="column"
           transition="all 0.3s ease"
         >
+          <Search findCountry={findCountry} />
           <Routes>
-            <Route path="/" element={<MainPage isLightTheme={isLightTheme} />} />
+            <Route
+              path="/"
+              element={<MainPage flags={flags} isLightTheme={isLightTheme} />}
+            />
             <Route path="/:countryName" element={<CountryPage />} />
             <Route path="*" element={<Page404 />} />
           </Routes>
