@@ -21,7 +21,20 @@ function RestCountries() {
     return data;
   }
 
-  return { getAllCountries, getCountriesByName, getCountriesByRegion };
+  async function getCountriesByCode(countryCode: string) {
+    const res = await fetch(
+      `https://restcountries.com/v3.1/alpha/${countryCode}`
+    );
+    const data = await res.json();
+    return data;
+  }
+
+  return {
+    getAllCountries,
+    getCountriesByName,
+    getCountriesByRegion,
+    getCountriesByCode,
+  };
 }
 
 export default RestCountries;

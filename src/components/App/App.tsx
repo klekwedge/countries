@@ -57,7 +57,7 @@ function App() {
               path="/"
               element={<MainPage flags={flags} isLightTheme={isLightTheme} />}
             />
-            <Route path="/:countryName" element={<CountryPage />} />
+            <Route path="/:countryCode" element={<CountryPage />} />
             <Route path="*" element={<Page404 />} />
           </Routes>
         </Flex>
