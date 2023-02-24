@@ -4,13 +4,14 @@ import { useEffect, useState } from "react";
 import RestCountries from "../services/RestCountries";
 import { ICountry } from "../types/types";
 import Search from "../components/Search/Search";
-import Header from "../components/Header/Header";
 
-const MainPage = () => {
+interface MainPageProps {
+  isLightTheme: boolean;
+}
+
+const MainPage = ({ isLightTheme }: MainPageProps) => {
   const [flags, setFlags] = useState<ICountry[]>([]);
   const { getAllCountries } = RestCountries();
-
-  // console.log(flags[20] && flags[20].name);
 
   useEffect(() => {
     getAllCountries().then((data: ICountry[]) => setFlags(data));
@@ -19,39 +20,35 @@ const MainPage = () => {
   return (
     <>
       <Search />
-      <Flex
-        gap="60px"
-        flexWrap="wrap"
-        alignItems="stretch"
-        justifyContent="center"
-      >
+      <Flex gap="60px" flexWrap="wrap" justifyContent="center">
         {flags.map((flag) => (
-          <Flex key={uuidv4()} flex="0 1 21%" direction="column">
-            <Image src={flag.flags.png} alignSelf="stretch" />
+          <Flex
+            key={uuidv4()}
+            flex="0 1 21%"
+            direction="column"
+          >
+            <Image flex="1 1 50%" src={flag.flags.png} maxH="250px" />
             <Flex
               flexDirection="column"
               p="30px 20px"
-              boxShadow="rgba(0, 0, 0, 0.35) 0px 5px 15px"
+              boxShadow={`${
+                isLightTheme
+                  ? "rgba(0, 0, 0, 0.35)"
+                  : "rgba(255, 255, 255, 0.35)"
+              }0px 5px 15px`}
             >
               <Heading as="h2" fontSize="25px" fontWeight="700" mb="20px">
                 {flag.name.common}
               </Heading>
               <Heading as="h3" fontSize="20px" fontWeight="400" mb="5px">
-                <Highlight query="Population:" styles={{ fontWeight: "600" }}>
-                  Population:
-                </Highlight>{" "}
+                <span style={{ fontWeight: "600" }}>Population:</span>{" "}
                 {String(flag.population).replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
               </Heading>
               <Heading as="h3" fontSize="20px" fontWeight="400" mb="5px">
-                <Highlight query="Region:" styles={{ fontWeight: "600" }}>
-                  Region:
-                </Highlight>{" "}
-                {flag.region}
+                <span style={{ fontWeight: "600" }}>Region:</span> {flag.region}
               </Heading>
               <Heading as="h3" fontSize="20px" fontWeight="400" mb="5px">
-                <Highlight query="Capital:" styles={{ fontWeight: "600" }}>
-                  Capital:
-                </Highlight>{" "}
+                <span style={{ fontWeight: "600" }}>Capital:</span>{" "}
                 {flag.capital}
               </Heading>
             </Flex>

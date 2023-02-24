@@ -1,7 +1,12 @@
 import { Box, Button, Flex, Heading } from "@chakra-ui/react";
 import { BsFillMoonFill } from "react-icons/bs";
 
-const Header = () => {
+interface HeaderProps {
+  isLightTheme: boolean;
+  toggleTheme: (isLigth: boolean) => void;
+}
+
+const Header = ({ isLightTheme, toggleTheme }: HeaderProps) => {
   return (
     <Box w="100%" boxShadow="rgba(0, 0, 0, 0.15) 0px 3px 3px 0px">
       <Flex
@@ -17,7 +22,14 @@ const Header = () => {
         <Heading as="h1" fontSize="30px">
           Where is the world?
         </Heading>
-        <Button leftIcon={<BsFillMoonFill />} variant="ghost">
+        <Button
+          leftIcon={<BsFillMoonFill />}
+          variant='outline'
+          onClick={() => toggleTheme(!isLightTheme)}
+          _hover={{
+            background: isLightTheme ? 'gray.100' : 'gray.700'
+          }}
+        >
           Dark mode
         </Button>
       </Flex>
