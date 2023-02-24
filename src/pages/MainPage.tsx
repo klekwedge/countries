@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import RestCountries from "../services/RestCountries";
 import { ICountry } from "../types/types";
 import Search from "../components/Search/Search";
+import Header from "../components/Header/Header";
 
 const MainPage = () => {
   const [flags, setFlags] = useState<ICountry[]>([]);
@@ -21,13 +22,12 @@ const MainPage = () => {
       <Flex
         gap="60px"
         flexWrap="wrap"
-        alignItems="start"
-        // justifyContent="center"
-        p="10px"
+        alignItems="stretch"
+        justifyContent="center"
       >
         {flags.map((flag) => (
           <Flex key={uuidv4()} flex="0 1 21%" direction="column">
-            <Image src={flag.flags.png} />
+            <Image src={flag.flags.png} alignSelf="stretch" />
             <Flex
               flexDirection="column"
               p="30px 20px"

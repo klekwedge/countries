@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { ChakraProvider, Flex } from "@chakra-ui/react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Header from "../Header/Header";
 
 const MainPage = lazy(() => import("../../pages/MainPage"));
 const CountryPage = lazy(() => import("../../pages/CountryPage"));
@@ -11,6 +12,7 @@ function App() {
     <Router>
       <ChakraProvider>
         <Suspense fallback={<h1>Loading...</h1>}>
+          <Header />
           <Flex
             maxWidth="1400px"
             margin="0 auto"
