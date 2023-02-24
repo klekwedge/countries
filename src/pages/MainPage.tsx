@@ -9,7 +9,6 @@ interface MainPageProps {
 }
 
 const MainPage = ({ flags, isLightTheme }: MainPageProps) => {
-  console.log(flags[1].name.official);
   return (
     <>
       <Flex gap="60px" flexWrap="wrap" justifyContent="center">

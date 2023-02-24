@@ -17,8 +17,12 @@ function App() {
   const { getAllCountries, getCountriesByName, getCountriesByRegion } =
     RestCountries();
 
-  useEffect(() => {
+  function findCountries() {
     getAllCountries().then((data: ICountry[]) => setFlags(data));
+  }
+
+  useEffect(() => {
+    findCountries();
   }, []);
 
   function findCountriesByName(countryName: string) {
@@ -26,7 +30,13 @@ function App() {
   }
 
   function findCountriesByRegion(regionName: string) {
-    getCountriesByRegion(regionName).then((data: ICountry[]) => setFlags(data));
+    if (regionName) {
+      getCountriesByRegion(regionName).then((data: ICountry[]) =>
+        setFlags(data)
+      );
+    } else {
+      findCountries();
+    }
   }
 
   useEffect(() => {
@@ -51,6 +61,7 @@ function App() {
           <Search
             findCountriesByName={findCountriesByName}
             findCountriesByRegion={findCountriesByRegion}
+            findCountries={findCountries}
           />
           <Routes>
             <Route

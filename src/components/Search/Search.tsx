@@ -1,22 +1,22 @@
 import {
   Flex,
-  Heading,
-  Highlight,
-  Image,
   Input,
   InputGroup,
   InputLeftElement,
+  InputRightElement,
   Select,
 } from "@chakra-ui/react";
-import { useState } from "react";
-import { AiOutlineSearch } from "react-icons/ai";
+import { useEffect, useState } from "react";
+import { AiOutlineSearch, AiFillCloseCircle } from "react-icons/ai";
 
 interface SearchProps {
+  findCountries: () => void;
   findCountriesByName: (countryName: string) => void;
   findCountriesByRegion: (regionName: string) => void;
 }
 
 const Search = ({
+  findCountries,
   findCountriesByName,
   findCountriesByRegion,
 }: SearchProps) => {
@@ -28,6 +28,12 @@ const Search = ({
     }
   };
 
+  useEffect(() => {
+    if (!inputValue) {
+      findCountries();
+    }
+  }, [inputValue]);
+
   return (
     <Flex
       justifyContent="space-between"
@@ -36,18 +42,25 @@ const Search = ({
       p="0px 20px"
       mb="60px"
     >
-      <InputGroup>
+      <InputGroup maxW="410px">
         <InputLeftElement
           cursor="pointer"
           children={<AiOutlineSearch size="20px" />}
           onClick={() => findCountriesByName(inputValue)}
         />
         <Input
-          maxW="410px"
           placeholder="Search for a country"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={(e) => keyDownHandler(e)}
+        />
+        <InputRightElement
+          cursor="pointer"
+          onClick={() => {
+            findCountries();
+            setInputValue("");
+          }}
+          children={<AiFillCloseCircle size="20px" />}
         />
       </InputGroup>
       <Select

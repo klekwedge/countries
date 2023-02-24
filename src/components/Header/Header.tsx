@@ -1,5 +1,6 @@
 import { Box, Button, Flex, Heading } from "@chakra-ui/react";
 import { BsFillMoonFill } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 interface HeaderProps {
   isLightTheme: boolean;
@@ -19,15 +20,15 @@ const Header = ({ isLightTheme, toggleTheme }: HeaderProps) => {
         mb="60px"
         p="20px"
       >
-        <Heading as="h1" fontSize="30px">
+        <Link to="/" style={{ fontSize: "30px" }}>
           Where is the world?
-        </Heading>
+        </Link>
         <Button
           leftIcon={<BsFillMoonFill />}
-          variant='outline'
+          variant="outline"
           onClick={() => toggleTheme(!isLightTheme)}
           _hover={{
-            background: isLightTheme ? 'gray.100' : 'gray.700'
+            background: isLightTheme ? "gray.100" : "gray.700",
           }}
         >
           Dark mode
