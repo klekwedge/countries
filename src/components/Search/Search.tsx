@@ -12,15 +12,19 @@ import { useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 
 interface SearchProps {
-  findCountry: (countryName: string) => void;
+  findCountriesByName: (countryName: string) => void;
+  findCountriesByRegion: (regionName: string) => void;
 }
 
-const Search = ({ findCountry }: SearchProps) => {
+const Search = ({
+  findCountriesByName,
+  findCountriesByRegion,
+}: SearchProps) => {
   const [inputValue, setInputValue] = useState("");
 
   const keyDownHandler: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
     if (e.key === "Enter") {
-      findCountry(inputValue);
+      findCountriesByName(inputValue);
     }
   };
 
@@ -36,7 +40,7 @@ const Search = ({ findCountry }: SearchProps) => {
         <InputLeftElement
           cursor="pointer"
           children={<AiOutlineSearch size="20px" />}
-          onClick={() => findCountry(inputValue)}
+          onClick={() => findCountriesByName(inputValue)}
         />
         <Input
           maxW="410px"
@@ -46,7 +50,11 @@ const Search = ({ findCountry }: SearchProps) => {
           onKeyDown={(e) => keyDownHandler(e)}
         />
       </InputGroup>
-      <Select placeholder="Filter by region" maxW="190px">
+      <Select
+        placeholder="Filter by region"
+        maxW="190px"
+        onChange={(e) => findCountriesByRegion(e.target.value)}
+      >
         <option value="Africa">Africa</option>
         <option value="America">America</option>
         <option value="Asia">Asia</option>

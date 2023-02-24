@@ -14,14 +14,19 @@ const Page404 = lazy(() => import("../../pages/Page404"));
 function App() {
   const [isLightTheme, setIsLightTheme] = useState(false);
   const [flags, setFlags] = useState<ICountry[]>([]);
-  const { getCountry, getAllCountries } = RestCountries();
+  const { getAllCountries, getCountriesByName, getCountriesByRegion } =
+    RestCountries();
 
   useEffect(() => {
     getAllCountries().then((data: ICountry[]) => setFlags(data));
   }, []);
 
-  function findCountry(countryName: string) {
-    getCountry(countryName).then((data: ICountry[]) => setFlags(data));
+  function findCountriesByName(countryName: string) {
+    getCountriesByName(countryName).then((data: ICountry[]) => setFlags(data));
+  }
+
+  function findCountriesByRegion(regionName: string) {
+    getCountriesByRegion(regionName).then((data: ICountry[]) => setFlags(data));
   }
 
   useEffect(() => {
@@ -43,7 +48,10 @@ function App() {
           flexDirection="column"
           transition="all 0.3s ease"
         >
-          <Search findCountry={findCountry} />
+          <Search
+            findCountriesByName={findCountriesByName}
+            findCountriesByRegion={findCountriesByRegion}
+          />
           <Routes>
             <Route
               path="/"

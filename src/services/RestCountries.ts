@@ -5,7 +5,7 @@ function RestCountries() {
     return data;
   }
 
-  async function getCountry(countryName: string) {
+  async function getCountriesByName(countryName: string) {
     const res = await fetch(
       `https://restcountries.com/v3.1/name/${countryName}`
     );
@@ -13,7 +13,15 @@ function RestCountries() {
     return data;
   }
 
-  return { getAllCountries, getCountry };
+  async function getCountriesByRegion(regionName: string) {
+    const res = await fetch(
+      `https://restcountries.com/v3.1/region/${regionName}`
+    );
+    const data = await res.json();
+    return data;
+  }
+
+  return { getAllCountries, getCountriesByName, getCountriesByRegion };
 }
 
 export default RestCountries;
