@@ -9,7 +9,16 @@ interface HeaderProps {
 
 const Header = ({ isLightTheme, toggleTheme }: HeaderProps) => {
   return (
-    <Box w="100%" boxShadow="rgba(0, 0, 0, 0.15) 0px 3px 3px 0px">
+    <Box
+      w="100%"
+      transition='all 0.3s ease'
+      boxShadow={
+        isLightTheme
+          ? "hsl(0, 0%, 98%) 0px 3px 3px 0px"
+          : "black 0px 3px 3px 0px"
+      }
+      // background={isLightTheme ? " hsl(0, 0%, 98%)" : ""}
+    >
       <Flex
         margin="0 auto"
         maxWidth="1400px"
@@ -20,7 +29,7 @@ const Header = ({ isLightTheme, toggleTheme }: HeaderProps) => {
         mb="30px"
         p="20px"
       >
-        <Link to="/" style={{ fontSize: "30px" }}>
+        <Link to="/" style={{ fontSize: "30px", fontWeight: "600" }}>
           Where is the world?
         </Link>
         <Button

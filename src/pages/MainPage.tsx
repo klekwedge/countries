@@ -33,12 +33,12 @@ const MainPage = ({
               <Image flex="1 1 50%" src={flag.flags.png} maxH="250px" />
               <Flex
                 flexDirection="column"
+                transition="all 0.3s ease"
                 p="30px 20px"
-                boxShadow={`${
-                  isLightTheme
-                    ? "rgba(0, 0, 0, 0.35)"
-                    : "rgba(255, 255, 255, 0.35)"
-                }0px 5px 15px`}
+                boxShadow={
+                  isLightTheme ? "rgba(0, 0, 0, 0.35) 0px 5px 15px" : ""
+                }
+                background={isLightTheme ? "" : "rgba(0, 0, 0, 0.35)"}
               >
                 <Link
                   style={{

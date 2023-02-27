@@ -71,7 +71,10 @@ function App() {
                 />
               }
             />
-            <Route path="/:countryCode" element={<CountryPage />} />
+            <Route
+              path="/:countryCode"
+              element={<CountryPage isLightTheme={isLightTheme} />}
+            />
             <Route path="*" element={<Page404 />} />
           </Routes>
         </Flex>

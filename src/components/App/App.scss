@@ -1,8 +1,12 @@
+body {
+  background: hsl(0, 0%, 98%);
+}
 body.dark {
-  background: black;
+  background: hsl(207, 26%, 17%);
+
   color: white;
 
   option {
-    background: black;
+    background: hsl(207, 26%, 17%);
   }
 }
