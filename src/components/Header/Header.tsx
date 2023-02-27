@@ -17,7 +17,7 @@ const Header = ({ isLightTheme, toggleTheme }: HeaderProps) => {
         alignItems="center"
         justifyContent="space-between"
         gap="50px"
-        mb="60px"
+        mb="30px"
         p="20px"
       >
         <Link to="/" style={{ fontSize: "30px" }}>

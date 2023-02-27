@@ -58,15 +58,18 @@ function App() {
           flexDirection="column"
           transition="all 0.3s ease"
         >
-          <Search
-            findCountriesByName={findCountriesByName}
-            findCountriesByRegion={findCountriesByRegion}
-            findCountries={findCountries}
-          />
           <Routes>
             <Route
               path="/"
-              element={<MainPage flags={flags} isLightTheme={isLightTheme} />}
+              element={
+                <MainPage
+                  flags={flags}
+                  isLightTheme={isLightTheme}
+                  findCountriesByName={findCountriesByName}
+                  findCountriesByRegion={findCountriesByRegion}
+                  findCountries={findCountries}
+                />
+              }
             />
             <Route path="/:countryCode" element={<CountryPage />} />
             <Route path="*" element={<Page404 />} />

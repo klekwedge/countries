@@ -45,6 +45,7 @@ Your users should be able to:
 
 - React
 - TypeScript
+- React router
 - Chakra UI
 - SCSS
 - Vite

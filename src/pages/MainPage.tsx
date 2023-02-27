@@ -1,16 +1,31 @@
 import { Flex, Heading, Image } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import Search from "../components/Search/Search";
 import { ICountry } from "../types/types";
 
 interface MainPageProps {
   isLightTheme: boolean;
   flags: ICountry[];
+  findCountries: () => void;
+  findCountriesByName: (countryName: string) => void;
+  findCountriesByRegion: (regionName: string) => void;
 }
 
-const MainPage = ({ flags, isLightTheme }: MainPageProps) => {
+const MainPage = ({
+  flags,
+  isLightTheme,
+  findCountriesByName,
+  findCountriesByRegion,
+  findCountries,
+}: MainPageProps) => {
   return (
     <>
+      <Search
+        findCountriesByName={findCountriesByName}
+        findCountriesByRegion={findCountriesByRegion}
+        findCountries={findCountries}
+      />
       <Flex gap="60px" flexWrap="wrap" justifyContent="center">
         {flags &&
           flags.map((flag) => (
