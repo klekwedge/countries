@@ -6,6 +6,7 @@ import Search from "../Search/Search";
 import "./App.scss";
 import { ICountry } from "../../types/types";
 import RestCountries from "../../services/RestCountries";
+import Loader from "../Loader/Loader";
 
 const MainPage = lazy(() => import("../../pages/MainPage"));
 const CountryPage = lazy(() => import("../../pages/CountryPage"));
@@ -49,7 +50,7 @@ function App() {
 
   return (
     <Router>
-      <Suspense fallback={<h1>Loading...</h1>}>
+      <Suspense fallback={<Loader />}>
         <Header toggleTheme={setIsLightTheme} isLightTheme={isLightTheme} />
         <Flex
           maxWidth="1400px"
