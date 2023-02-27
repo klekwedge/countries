@@ -37,19 +37,20 @@ const CountryPage = ({ isLightTheme }: CountryPageProps) => {
 
   return (
     <Box>
-      <Button
-        p="10px 30px"
-        leftIcon={<BsArrowLeft />}
-        // hsl(0, 0%, 98%)
-        boxShadow="rgba(0, 0, 0, 0.35) 0px 5px 15px"
-        background={isLightTheme ? "hsl(0, 0%, 98%)" : "hsl(209, 23%, 22%)"}
-        fontSize="20px"
-        _hover={{
-          background: isLightTheme ? "hsl(0, 0%, 98%)" : "hsl(209, 23%, 22%)",
-        }}
-      >
-        <Link to="/">Back</Link>
-      </Button>
+      <Link to="/">
+        <Button
+          p="10px 30px"
+          leftIcon={<BsArrowLeft />}
+          boxShadow="rgba(0, 0, 0, 0.35) 0px 5px 15px"
+          background={isLightTheme ? "hsl(0, 0%, 98%)" : "hsl(209, 23%, 22%)"}
+          fontSize="20px"
+          _hover={{
+            background: isLightTheme ? "hsl(0, 0%, 98%)" : "hsl(209, 23%, 22%)",
+          }}
+        >
+          Back
+        </Button>
+      </Link>
       {country ? (
         <Flex
           marginTop="80px"
