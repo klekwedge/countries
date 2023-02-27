@@ -30,6 +30,7 @@ export interface ICountry {
   startOfWeek: string;
   capitalInfo: ICapitalInfo;
   postalCode: IPostalCode;
+  borders: string[];
 }
 
 export interface ICapitalInfo {
@@ -47,7 +48,7 @@ export interface ICoatOfArms {
 }
 
 export interface ICurrencies {
-  DKK: IDkk;
+  XPF: IDkk;
 }
 
 export interface IDkk {
@@ -86,7 +87,7 @@ export interface IName {
 }
 
 export interface INativeName {
-  kal: ITranslation;
+  fra: ITranslation;
 }
 
 export interface ITranslation {
