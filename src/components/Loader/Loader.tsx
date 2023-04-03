@@ -3,7 +3,7 @@ import "./Loader.scss";
 function Loader() {
   return (
     <section className="section">
-      <span className="loader"></span>
+      <span className="loader" />
     </section>
   );
 }

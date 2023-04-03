@@ -2,7 +2,6 @@ import { lazy, Suspense, useState, useEffect } from "react";
 import { Flex } from "@chakra-ui/react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "../Header/Header";
-import Search from "../Search/Search";
 import "./App.scss";
 import { ICountry } from "../../types/types";
 import RestCountries from "../../services/RestCountries";

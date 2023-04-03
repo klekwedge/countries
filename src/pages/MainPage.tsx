@@ -12,13 +12,13 @@ interface MainPageProps {
   findCountriesByRegion: (regionName: string) => void;
 }
 
-const MainPage = ({
+function MainPage({
   flags,
   isLightTheme,
   findCountriesByName,
   findCountriesByRegion,
   findCountries,
-}: MainPageProps) => {
+}: MainPageProps) {
   return (
     <>
       <Search
@@ -71,6 +71,6 @@ const MainPage = ({
       </Flex>
     </>
   );
-};
+}
 
 export default MainPage;

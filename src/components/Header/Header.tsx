@@ -7,7 +7,7 @@ interface HeaderProps {
   toggleTheme: (isLigth: boolean) => void;
 }
 
-const Header = ({ isLightTheme, toggleTheme }: HeaderProps) => {
+function Header({ isLightTheme, toggleTheme }: HeaderProps) {
   return (
     <Box
       w="100%"
@@ -17,7 +17,6 @@ const Header = ({ isLightTheme, toggleTheme }: HeaderProps) => {
           ? "hsl(0, 0%, 98%) 0px 3px 3px 0px"
           : "black 0px 3px 3px 0px"
       }
-      // background={isLightTheme ? " hsl(0, 0%, 98%)" : ""}
     >
       <Flex
         margin="0 auto"
@@ -45,6 +44,6 @@ const Header = ({ isLightTheme, toggleTheme }: HeaderProps) => {
       </Flex>
     </Box>
   );
-};
+}
 
 export default Header;

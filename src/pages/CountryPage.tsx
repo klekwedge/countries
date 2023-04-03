@@ -1,24 +1,22 @@
-import { Box, Button, Flex, Heading, Image } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { BsArrowLeft } from "react-icons/bs";
-import { Link, useParams } from "react-router-dom";
-import RestCountries from "../services/RestCountries";
-import { ICountry } from "../types/types";
+import { Box, Button, Flex, Heading, Image } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import { BsArrowLeft } from 'react-icons/bs';
+import { Link, useParams } from 'react-router-dom';
+import RestCountries from '../services/RestCountries';
+import { ICountry } from '../types/types';
 
 interface CountryPageProps {
   isLightTheme: boolean;
 }
 
-const CountryPage = ({ isLightTheme }: CountryPageProps) => {
+function CountryPage({ isLightTheme }: CountryPageProps) {
   const { countryCode } = useParams();
   const [country, setCountry] = useState<ICountry>();
   const [borderCountries, setBorderCountries] = useState<ICountry[]>([]);
   const { getCountriesByCode } = RestCountries();
   useEffect(() => {
     if (countryCode) {
-      getCountriesByCode(countryCode).then((data: ICountry[]) =>
-        setCountry(data[0])
-      );
+      getCountriesByCode(countryCode).then((data: ICountry[]) => setCountry(data[0]));
     }
   }, [countryCode]);
 
@@ -42,22 +40,17 @@ const CountryPage = ({ isLightTheme }: CountryPageProps) => {
           p="10px 30px"
           leftIcon={<BsArrowLeft />}
           boxShadow="rgba(0, 0, 0, 0.35) 0px 5px 15px"
-          background={isLightTheme ? "hsl(0, 0%, 98%)" : "hsl(209, 23%, 22%)"}
+          background={isLightTheme ? 'hsl(0, 0%, 98%)' : 'hsl(209, 23%, 22%)'}
           fontSize="20px"
           _hover={{
-            background: isLightTheme ? "hsl(0, 0%, 98%)" : "hsl(209, 23%, 22%)",
+            background: isLightTheme ? 'hsl(0, 0%, 98%)' : 'hsl(209, 23%, 22%)',
           }}
         >
           Back
         </Button>
       </Link>
       {country ? (
-        <Flex
-          marginTop="80px"
-          gap="50px 150px"
-          flexWrap="wrap"
-          alignItems="center"
-        >
+        <Flex marginTop="80px" gap="50px 150px" flexWrap="wrap" alignItems="center">
           <Image src={country.flags.png} width="100%" maxW="600px" />
           <Box>
             <Heading as="h2" fontWeight="500" mb="30px">
@@ -69,11 +62,7 @@ const CountryPage = ({ isLightTheme }: CountryPageProps) => {
                   Native Name: {country.name.common}
                 </Heading>
                 <Heading as="h3" fontWeight="400" fontSize="20px">
-                  Population:{" "}
-                  {String(country.population).replace(
-                    /\B(?=(\d{3})+(?!\d))/g,
-                    "."
-                  )}
+                  Population: {String(country.population).replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
                 </Heading>
                 <Heading as="h3" fontWeight="400" fontSize="20px">
                   Region: {country.region}
@@ -87,11 +76,11 @@ const CountryPage = ({ isLightTheme }: CountryPageProps) => {
               </Flex>
               <Box>
                 <Heading as="h3" fontWeight="400" fontSize="20px">
-                  Top Level Domain: {country.tld.join(", ")}
+                  Top Level Domain: {country.tld.join(', ')}
                 </Heading>
                 {/* <Heading as="h3">Currencies: {country.currencies.XPF.name}</Heading> */}
                 <Heading as="h3" fontWeight="400" fontSize="20px">
-                  Languages: {Object.values(country.languages).join(", ")}
+                  Languages: {Object.values(country.languages).join(', ')}
                 </Heading>
               </Box>
             </Flex>
@@ -101,10 +90,10 @@ const CountryPage = ({ isLightTheme }: CountryPageProps) => {
           </Box>
         </Flex>
       ) : (
-        ""
+        ''
       )}
     </Box>
   );
-};
+}
 
 export default CountryPage;
