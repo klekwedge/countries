@@ -1,47 +1,53 @@
-# Frontend Mentor - REST Countries API with color theme switcher solution
+# Countries
 
-This is a solution to the [REST Countries API with color theme switcher challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/rest-countries-api-with-color-theme-switcher-5cacc469fec04111f7b848ca).
+**You can also read this README in [English](https://github.com/klekwedge/countries/blob/main/README.EN.md).**
 
-## Table of contents
+## Оглавление
 
-- [Overview](#overview)
-  - [Brief info](#brief-info)
-  - [Screenshot](#screenshot)
-  - [Links](#links)
-- [My process](#my-process)
-  - [Built with](#built-with)
-  - [What I learned](#what-i-learned)
-- [Author](#author)
+- [Инструкции по развертыванию](#инструкции-по-развертыванию)
+- [Обзор](#обзор)
+  - [Скриншот](#скриншот)
+  - [Ссылки](#ссылки)
+- [Мой процесс](#мой-процесс)
+  - [Стек](#стек)
+  - [Что я узнал](#что-я-узнал)
+- [Автор](#автор)
 
-## Overview
+## Инструкции по развертыванию
 
-### Brief info
+**Для запуска проекта на вашем компьютере должны быть установлены [npm](https://nodejs.org/en/) и [git](https://git-scm.com/downloads)**
 
-Your challenge is integrating with the REST Countries API to pull country data and display it like in the designs.
+1. Сделайте клон этого репозитория ```git clone https://github.com/klekwedge/countries.git```
+2. Установите все необходимые пакеты npm с помощью ```npm i```
+3. Запустите проект командой ```npm run dev```
 
-You can use any JavaScript framework/library on the front-end, such as React or Vue. You also have complete control over which packages you use to make HTTP requests or style your project.
+## Обзор
 
-Your users should be able to:
+Ваша задача — интегрироваться с API стран REST, чтобы получать данные о странах и отображать их, как в проектах.
 
-- See all countries from the API on the homepage
-- Search for a country using an input field
-- Filter countries by region
-- Click on a country to see more detailed information on a separate page
-- Click through to the border countries on the detail page
-- Toggle the color scheme between light and dark mode (optional)
+Вы можете использовать любой фреймворк/библиотеку JavaScript во внешнем интерфейсе, например React или Vue. У вас также есть полный контроль над тем, какие пакеты вы используете для выполнения HTTP-запросов или оформления вашего проекта.
 
-### Screenshot
+Ваши пользователи должны иметь возможность:
 
-![Screenshot](./preview/screenshot.png)
+- Посмотреть все страны из API на главной странице
+- Поиск страны с помощью поля ввода
+- Фильтровать страны по регионам
+- Нажмите на страну, чтобы увидеть более подробную информацию на отдельной странице
+- Перейдите к приграничным странам на странице сведений.
+- Переключение цветовой схемы между светлым и темным режимом (необязательно)
 
-### Links
+### Скриншот
 
-- Solution URL: [Solution](https://github.com/klekwedge/countries)
-- Live Site URL: [Live site](https://klekwedge-countries.vercel.app/)
+![Главный экран](./preview/screenshot.png)
 
-## My process
+### Ссылки
 
-### Built with
+- [Ссылка на проект](https://github.com/klekwedge/countries)
+- [Деплой](https://klekwedge-countries.vercel.app/)
+
+## Мой процесс
+
+### Стек
 
 - React
 - TypeScript
@@ -50,11 +56,12 @@ Your users should be able to:
 - SCSS
 - Vite
 
-### What I learned
+### Что я узнал
 
-Worked on theme change, improved my app building skills with React and Typescript. Improved the skills of sending a request to the server and receiving a response from it, as well as displaying the received data on the page.
+Работал над изменением темы, улучшил свои навыки создания приложений с помощью React и Typescript. Улучшены навыки отправки запроса на сервер и получения от него ответа, а также отображения полученных данных на странице.
 
-## Author
+## Автор
 
-- Website - [klekwedge](https://klekwedge-cv.vercel.app/)
-- Frontend Mentor - [klekwedge](https://www.frontendmentor.io/profile/klekwedge)
+- [Вебсайт](https://klekwedge-cv.vercel.app/)
+- [Linkedin](https://www.linkedin.com/in/klekwedge/)
+- [Facebook](https://www.facebook.com/klekwedge)
